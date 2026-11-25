@@ -26,7 +26,7 @@ Code: https://github.com/ChuanMeng/RLT4Reranking
 | 3 | SPLADE++ retrieval (2.2) | **PC** | Query encoding on CPU or GPU is cheap; the prebuilt impact index is several GB. |
 | 4 | RepLLaMA runs (2.2) | **PC** | Just download the Dropbox runs and run `format.py`. No model needed. |
 | 5 | `prepare_rerank_file.py` | **PC** | Writes query + passage text for top-1000. It's small (tens of MB), so **upload it to Kaggle as a private Dataset**. Then Kaggle never needs the 3 GB collection. |
-| 6 | **RankLLaMA-7B re-ranking**, 3 retrievers × 2 datasets (2.3) | **Kaggle GPU (T4)** | ~300k query–passage pairs. Fits a 16 GB T4 in fp16; drop batch size to 8–16 if you run out of memory. Rough estimate: 3–5 GPU-h. Download the run files back to the PC (they're small). |
+| 6 | **RankLLaMA-7B re-ranking**, 3 retrievers × 2 datasets (2.3) | **Kaggle GPU (T4)** | ~300k query–passage pairs. Fits a 16 GB T4 in fp16; drop batch size to 8–16 if you run out of memory. Rough estimate: 4–8 GPU-h (see §6). Download the run files back to the PC (they're small). |
 | 7 | MonoT5-base re-ranking, BM25 only (2.3) | **PC GPU** | 220M parameters, so it fits 8 GB easily. Use the PyGaggle env. |
 | 8 | Features: tf-idf and doc2vec, then `--mode infer` (2.4) | **PC first**, Kaggle CPU as fallback | Fitting tf-idf and doc2vec on 8.8M passages may exceed 16 GB RAM. Watch it with `htop`. If it runs out of memory, run a Kaggle **CPU** notebook (~29 GB RAM, which doesn't use GPU quota). |
 | 9 | LeCut RepLLaMA embeddings (`embedding.py`) | **Kaggle GPU** | 7B encoder over ~97k passages at 512 tokens. Rough estimate: 1–2 GPU-h. |
@@ -43,7 +43,7 @@ Code: https://github.com/ChuanMeng/RLT4Reranking
 - Write runs to `/kaggle/working` and checkpoint each (retriever, dataset) run separately, because sessions get killed at 12 h.
 - Set `HF_HOME=/kaggle/tmp` (or similar) so the 13 GB model doesn't fill the saved-output quota.
 
-**Expected Kaggle usage:** about 5–8 GPU-h for the reproduction, which fits in one week's 30 h with room for extensions.
+**Expected Kaggle usage:** about 7–13 GPU-h for the reproduction (see §6), which fits in one week's 30 h with room for extensions.
 
 ## 3. Data flow
 
@@ -80,3 +80,67 @@ Recommended set for the seminar: **E1 + E3 + E4**. All three are cheap, and each
 3. Kaggle step 9 (LeCut embeddings).
 4. PC steps 10–13: reproduce the paper's DL19/DL20 tables and check them against the paper.
 5. Run the extension experiments, then write up the slides and report.
+
+## 5b. Scope decision: run only the parts the extensions need
+
+The repo doesn't publish re-ranked runs, features, labels or checkpoints. The extensions need all of these, so most of the original pipeline has to run anyway. Run it **once**, limited to what E1, E3 and E4 need. That one run also serves as the reproduction.
+
+| Part | Keep? | Why |
+|---|---|---|
+| BM25 → RankLLaMA, DL19 + DL20 | **Keep** | Main setting. Use it to check your numbers against the paper. |
+| SPLADE++ → RankLLaMA | **Keep** | E3 needs at least two retrievers. |
+| RepLLaMA → RankLLaMA | Optional | Adds a dense retriever to E3. The runs download for free, but re-ranking costs +1.5–3 GPU-h. |
+| BM25 → MonoT5 | **Keep** | Runs on the PC, and E4 needs it. |
+| LeCut (RepLLaMA embeddings) | Skip | Saves 1.5–3 GPU-h. Cite the paper's LeCut numbers instead. |
+| Robust04 | Skip | Too expensive. |
+
+**Sanity check before the extensions:** compare your oracle, fixed-k and one supervised method (e.g. AttnCut) on BM25→RankLLaMA with the paper's table. They should match to within about ±0.01 nDCG@10. If they don't, fix the setup first.
+
+**Trimmed cost:** ~3.5–7 Kaggle GPU-h (2 retrievers), compared with 7–13 h for the full pipeline.
+
+## 6. Time estimates
+
+These are back-of-envelope numbers, not measurements. They rest on these assumptions:
+- **RankLLaMA-7B fp16 on one T4: ~8–12 query–passage pairs/s.** Each pair is ~180 tokens, about 2.4 TFLOP, at ~20–25 effective TFLOPS. Two runs go in parallel, one per GPU, on a 2× T4 session.
+- **MonoT5-base on the 2060S: ~50–150 pairs/s.**
+- **Pair counts:** 43 queries (DL19) + 54 queries (DL20) = 97 queries × 1000 docs = 97k pairs per retriever.
+- **Kaggle quota is counted per session hour,** not per GPU.
+
+**Calibrate early.** Time the first 1000 RankLLaMA pairs. If the rate isn't ~10 pairs/s, scale every Kaggle number below by (10 ÷ your rate).
+
+Quota checked 2026-11-24: 30 GPU-h, 0 used. The quota resets 2026-11-28, so you get a second 30 h window soon after.
+
+### 6.1 Reproduction (DL19 + DL20)
+
+| Step | Where | Compute time | Notes |
+|---|---|---|---|
+| Environment setup (conda, pyserini, tevatron, pygaggle) | PC | — | **3–6 h of your time**, mostly debugging dependencies |
+| Download collection + prebuilt indexes (BM25 full, SPLADE++) | PC | 0.5–1.5 h | depends on your bandwidth; ~10 GB in total |
+| BM25 + SPLADE++ retrieval, RepLLaMA formatting | PC | 10–20 min | |
+| `prepare_rerank_file.py` + upload Kaggle Dataset | PC | 15–30 min | |
+| **RankLLaMA re-ranking, 3 × 97k = 291k pairs** | Kaggle 2× T4 | **4–8 h** | ~8–16 GPU-h if the model must be split across both T4s (no parallel runs) |
+| Model download + load overhead (~3 sessions) | Kaggle | 0.5–1 h | 13.5 GB per session |
+| **RepLLaMA embeddings for LeCut** (~97k passages) | Kaggle 2× T4 | **1.5–3 h** | |
+| MonoT5 re-ranking (BM25, 97k pairs) | PC GPU | 20–60 min | |
+| tf-idf + doc2vec fit on 8.8M passages | PC CPU | 1.5–4 h | ×3–5 on Kaggle CPU (4 cores) if it runs out of memory |
+| Feature inference for 4 pipelines × 2 datasets | PC CPU | 20–60 min | |
+| Training labels (nDCG@10 at every k, 8 runs) | PC CPU | 10–30 min | |
+| Unsupervised RLT | PC | < 5 min | |
+| Supervised RLT (~100–150 trainings, ~1 step per epoch) | PC GPU | 0.5–2 h | can run overnight with a script |
+| Evaluation + plots | PC | 15–30 min | |
+| **Total** | | **Kaggle ≈ 7–13 GPU-h · PC ≈ 5–10 h compute** | **calendar ≈ 3–5 days** |
+
+### 6.2 Extension experiments
+
+| ID | Extra compute | Where | Your time (coding + analysis) | Notes |
+|---|---|---|---|---|
+| E1 seed variance | reduced: 5 seeds × 6 methods × 2 pipelines × 2 directions × 1 β ≈ **1 h**; full: 3–8 h | PC GPU | 2–3 h | runs unattended overnight |
+| E2 real wall-clock cost | ~30 min PC + **~0 Kaggle** if you add timers to step 6 now (otherwise ~15 min re-run) | PC + Kaggle | 2–4 h | **put `time.perf_counter()` around batches in the RankLLaMA notebook before running it** |
+| E3 cross-retriever transfer | **< 30 min** (reuse the trained models; inference only) | PC | 2–4 h | score scales differ (BM25 vs SPLADE vs dense), so try z-score normalization too |
+| E4 MonoT5 scores as features | 40–120 min MonoT5 on SPLADE/RepLLaMA lists + ~1 h retraining | PC GPU | 3–5 h | change `features.py` and the input dimensions; count MonoT5's own cost fairly |
+| E5 4-bit RankLLaMA on 2060S | **2–4 h per dataset** (~3–6 pairs/s) | PC GPU | 1–2 h | run in WSL; 8-bit (~7 GB) won't fit on 8 GB |
+| E6 RankZephyr listwise RLT | **4–10 GPU-h** (cutoffs k ∈ {20…100}, ~25 windows per query, vLLM on 2× T4) | Kaggle | 4–8 h | add 1–2 h for vLLM/Kaggle version issues; may need the second quota window |
+
+**Recommended set (E1 + E3 + E4):** ~3–5 h of PC compute, 0 Kaggle hours, ~1.5–2 days of your time.
+**All extensions:** adds ~10–20 h of PC compute and 4–10 Kaggle GPU-h.
+**Kaggle total, worst case** (reproduction + E6): ~23 GPU-h, which still fits in one 30 h window.

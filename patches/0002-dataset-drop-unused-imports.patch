@@ -1,0 +1,13 @@
+diff --git a/rlt/supervised_rlt/dataset.py b/rlt/supervised_rlt/dataset.py
+index c188229..9799d75 100644
+--- a/rlt/supervised_rlt/dataset.py
++++ b/rlt/supervised_rlt/dataset.py
+@@ -1,8 +1,6 @@
+ import numpy as np
+ import torch
+ import random
+-from transformers import BertTokenizer
+-from pyserini.index.lucene import IndexReader
+ import pytrec_eval
+ import more_itertools
+ import json

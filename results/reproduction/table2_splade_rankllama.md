@@ -1,0 +1,54 @@
+# splade-pp-ed-pytorch → rankllama  (avg. k / nDCG@10)
+
+| k-file | ours | paper (reported) | paper k-files on our labels |
+|---|---|---|---|
+| `fixed-1` |     1.0 / 0.731 |     1.0 / 0.731 |     1.0 / 0.731 |
+| `fixed-10` |    10.0 / 0.740 |    10.0 / 0.740 |    10.0 / 0.740 |
+| `fixed-100` |   100.0 / 0.769 |   100.0 / 0.769 |   100.0 / 0.769 |
+| `fixed-1000` |  1000.0 / 0.768 |  1000.0 / 0.768 |  1000.0 / 0.768 |
+| `fixed-20` |    20.0 / 0.773 |    20.0 / 0.773 |    20.0 / 0.773 |
+| `fixed-200` |   200.0 / 0.769 |   200.0 / 0.769 |   200.0 / 0.769 |
+| `fixed-5` |     5.0 / 0.734 |       – / – |       – / – |
+| `fixed-500` |   500.0 / 0.766 |   500.0 / 0.766 |   500.0 / 0.766 |
+| `greedy-ckpt-dl-20-passage.original-splade-pp-ed-pytorch-1000.rankllama-1000-ndcg@10-eet-alpha-0.001-beta0` |    65.0 / 0.770 |    65.0 / 0.770 |    65.0 / 0.770 |
+| `greedy-ckpt-dl-20-passage.original-splade-pp-ed-pytorch-1000.rankllama-1000-ndcg@10-eet-alpha-0.001-beta1` |    65.0 / 0.770 |    65.0 / 0.770 |    65.0 / 0.770 |
+| `greedy-ckpt-dl-20-passage.original-splade-pp-ed-pytorch-1000.rankllama-1000-ndcg@10-eet-alpha-0.001-beta2` |    18.0 / 0.769 |    18.0 / 0.769 |    18.0 / 0.769 |
+| `oracle-rankllama-1000-ndcg@10` |    17.4 / 0.810 |    17.4 / 0.810 |    17.4 / 0.810 |
+| `surprise` |   701.9 / 0.766 |   701.9 / 0.766 |   701.9 / 0.766 |
+| `attncut-ckpt-dl-20-passage.original-splade-pp-ed-pytorch-1000.attncut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta0-100` |   999.0 / 0.768 |   999.0 / 0.768 |   999.0 / 0.768 |
+| `attncut-ckpt-dl-20-passage.original-splade-pp-ed-pytorch-1000.attncut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta1-100` |    47.1 / 0.768 |    46.4 / 0.771 |    46.4 / 0.771 |
+| `attncut-ckpt-dl-20-passage.original-splade-pp-ed-pytorch-1000.attncut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta2-100` |    24.1 / 0.762 |    23.6 / 0.758 |    23.6 / 0.758 |
+| `bicut-ckpt-dl-20-passage.original-splade-pp-ed-pytorch-1000.bicut.alpha0.4-100` |  1000.0 / 0.768 |  1000.0 / 0.768 |  1000.0 / 0.768 |
+| `bicut-ckpt-dl-20-passage.original-splade-pp-ed-pytorch-1000.bicut.alpha0.5-100` |     2.0 / 0.731 |     2.0 / 0.731 |     2.0 / 0.731 |
+| `bicut-ckpt-dl-20-passage.original-splade-pp-ed-pytorch-1000.bicut.alpha0.6-100` |     2.0 / 0.731 |     2.0 / 0.731 |     2.0 / 0.731 |
+| `choppy-ckpt-dl-20-passage.original-splade-pp-ed-pytorch-1000.choppy.rankllama-1000-ndcg@10-eet-alpha-0.001-beta0-100` |   999.6 / 0.768 |   904.1 / 0.768 |   904.1 / 0.768 |
+| `choppy-ckpt-dl-20-passage.original-splade-pp-ed-pytorch-1000.choppy.rankllama-1000-ndcg@10-eet-alpha-0.001-beta1-100` |    46.5 / 0.773 |    68.1 / 0.771 |    68.1 / 0.771 |
+| `choppy-ckpt-dl-20-passage.original-splade-pp-ed-pytorch-1000.choppy.rankllama-1000-ndcg@10-eet-alpha-0.001-beta2-100` |    42.1 / 0.762 |     1.0 / 0.731 |     1.0 / 0.731 |
+| `mmoecut-ckpt-dl-20-passage.original-splade-pp-ed-pytorch-1000.mmoecut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta0-100` |   551.6 / 0.768 |   999.0 / 0.768 |   999.0 / 0.768 |
+| `mmoecut-ckpt-dl-20-passage.original-splade-pp-ed-pytorch-1000.mmoecut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta1-100` |   462.5 / 0.763 |   119.7 / 0.775 |   119.7 / 0.775 |
+| `mmoecut-ckpt-dl-20-passage.original-splade-pp-ed-pytorch-1000.mmoecut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta2-100` |    18.8 / 0.753 |    19.7 / 0.756 |    19.7 / 0.756 |
+| `fixed-1` |     1.0 / 0.720 |     1.0 / 0.720 |     1.0 / 0.720 |
+| `fixed-10` |    10.0 / 0.741 |    10.0 / 0.741 |    10.0 / 0.741 |
+| `fixed-100` |   100.0 / 0.771 |   100.0 / 0.771 |   100.0 / 0.771 |
+| `fixed-1000` |  1000.0 / 0.768 |  1000.0 / 0.768 |  1000.0 / 0.768 |
+| `fixed-20` |    20.0 / 0.778 |    20.0 / 0.778 |    20.0 / 0.778 |
+| `fixed-200` |   200.0 / 0.769 |   200.0 / 0.769 |   200.0 / 0.769 |
+| `fixed-5` |     5.0 / 0.732 |       – / – |       – / – |
+| `fixed-500` |   500.0 / 0.766 |   500.0 / 0.766 |   500.0 / 0.766 |
+| `greedy-ckpt-dl-19-passage.original-splade-pp-ed-pytorch-1000.rankllama-1000-ndcg@10-eet-alpha-0.001-beta0` |    42.0 / 0.772 |    42.0 / 0.772 |    42.0 / 0.772 |
+| `greedy-ckpt-dl-19-passage.original-splade-pp-ed-pytorch-1000.rankllama-1000-ndcg@10-eet-alpha-0.001-beta1` |    21.0 / 0.775 |    21.0 / 0.775 |    21.0 / 0.775 |
+| `greedy-ckpt-dl-19-passage.original-splade-pp-ed-pytorch-1000.rankllama-1000-ndcg@10-eet-alpha-0.001-beta2` |    21.0 / 0.775 |    21.0 / 0.775 |    21.0 / 0.775 |
+| `oracle-rankllama-1000-ndcg@10` |    27.6 / 0.820 |    27.7 / 0.820 |    27.7 / 0.820 |
+| `surprise` |   684.1 / 0.768 |   684.1 / 0.768 |   684.1 / 0.768 |
+| `attncut-ckpt-dl-19-passage.original-splade-pp-ed-pytorch-1000.attncut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta0-100` |   999.0 / 0.768 |   999.0 / 0.768 |   999.0 / 0.768 |
+| `attncut-ckpt-dl-19-passage.original-splade-pp-ed-pytorch-1000.attncut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta1-100` |   998.0 / 0.768 |    53.2 / 0.771 |    53.2 / 0.771 |
+| `attncut-ckpt-dl-19-passage.original-splade-pp-ed-pytorch-1000.attncut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta2-100` |    72.8 / 0.770 |    52.1 / 0.772 |    52.1 / 0.772 |
+| `bicut-ckpt-dl-19-passage.original-splade-pp-ed-pytorch-1000.bicut.alpha0.4-100` |  1000.0 / 0.768 |  1000.0 / 0.768 |  1000.0 / 0.768 |
+| `bicut-ckpt-dl-19-passage.original-splade-pp-ed-pytorch-1000.bicut.alpha0.5-100` |     3.0 / 0.723 |     1.0 / 0.720 |     1.0 / 0.720 |
+| `bicut-ckpt-dl-19-passage.original-splade-pp-ed-pytorch-1000.bicut.alpha0.6-100` |     0.0 / 0.720 |     0.0 / 0.720 |     0.0 / 0.720 |
+| `choppy-ckpt-dl-19-passage.original-splade-pp-ed-pytorch-1000.choppy.rankllama-1000-ndcg@10-eet-alpha-0.001-beta0-100` |   999.1 / 0.768 |  1000.0 / 0.768 |  1000.0 / 0.768 |
+| `choppy-ckpt-dl-19-passage.original-splade-pp-ed-pytorch-1000.choppy.rankllama-1000-ndcg@10-eet-alpha-0.001-beta1-100` |    72.0 / 0.772 |   101.9 / 0.766 |   101.9 / 0.766 |
+| `choppy-ckpt-dl-19-passage.original-splade-pp-ed-pytorch-1000.choppy.rankllama-1000-ndcg@10-eet-alpha-0.001-beta2-100` |     1.0 / 0.720 |    20.6 / 0.764 |    20.6 / 0.764 |
+| `mmoecut-ckpt-dl-19-passage.original-splade-pp-ed-pytorch-1000.mmoecut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta0-100` |  1000.0 / 0.768 |  1000.0 / 0.768 |  1000.0 / 0.768 |
+| `mmoecut-ckpt-dl-19-passage.original-splade-pp-ed-pytorch-1000.mmoecut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta1-100` |   997.0 / 0.768 |   996.0 / 0.768 |   996.0 / 0.768 |
+| `mmoecut-ckpt-dl-19-passage.original-splade-pp-ed-pytorch-1000.mmoecut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta2-100` |    26.7 / 0.781 |    25.9 / 0.784 |    25.9 / 0.784 |

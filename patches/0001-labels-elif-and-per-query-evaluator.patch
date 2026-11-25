@@ -1,0 +1,31 @@
+diff --git a/rlt/reranking_labels.py b/rlt/reranking_labels.py
+index 361d95e..09b8067 100644
+--- a/rlt/reranking_labels.py
++++ b/rlt/reranking_labels.py
+@@ -47,7 +47,7 @@ if __name__ == '__main__':
+ 
+     if args.metric=="ndcg@10":
+         args.metric = "ndcg_cut_10"
+-    if args.metric=="ndcg@20":
++    elif args.metric=="ndcg@20":
+         args.metric = "ndcg_cut_20"
+     elif args.metric=="mrr@10":
+         args.metric ='recip_rank'
+@@ -125,6 +125,9 @@ if __name__ == '__main__':
+ 
+         assert len(retrieval_list)==len(reranking_list),print(qid,len(retrieval_list),len(reranking_list))
+ 
++        # speed-up (same numbers): build the evaluator once per query, on this query's qrels only
++        evaluator = pytrec_eval.RelevanceEvaluator({qid: qrels[qid]}, {args.metric})
++
+         for idx in range(args.seq_len):
+             k = idx + 1  # [1, 1000]
+ 
+@@ -148,7 +151,6 @@ if __name__ == '__main__':
+             if args.metric == 'recip_rank':
+                 merged_list = merged_list[:10]
+ 
+-            evaluator = pytrec_eval.RelevanceEvaluator(qrels, {args.metric})
+             q2metric2result = evaluator.evaluate({qid:dict(merged_list)})  # {qid:{ndcg@10:xx,...},...}
+             #aggregated_result = pytrec_eval.compute_aggregated_measure(metric,[metric2result[metric] for metric2result in q2metric2result.values()])
+             q2result[qid].append(q2metric2result[qid][args.metric])

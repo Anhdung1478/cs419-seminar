@@ -1,8 +1,22 @@
+work/
 __pycache__/
 *.py[cod]
 .venv/
 venv/
 .env
+.env.*
+
+# Credentials: never commit (Kaggle tokens live in WSL ~/.kaggle and ~/.kaggle2)
+kaggle.json
+.kaggle/
+.kaggle2/
+access_token
+*.token
+*.pem
+*.key
+.netrc
+.huggingface/
+hf_token*
 .ipynb_checkpoints/
 .DS_Store
 Thumbs.db

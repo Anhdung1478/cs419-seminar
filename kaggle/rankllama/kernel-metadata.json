@@ -1,0 +1,15 @@
+{
+  "id": "anhdung147/rlt-rankllama",
+  "title": "rlt-rankllama",
+  "code_file": "rankllama_rerank.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "dataset_sources": ["anhdung147/rlt-rankllama-inputs"],
+  "competition_sources": [],
+  "kernel_sources": [],
+  "model_sources": []
+}

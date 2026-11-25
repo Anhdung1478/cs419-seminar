@@ -1,0 +1,54 @@
+# bm25 → monot5  (avg. k / nDCG@10)
+
+| k-file | ours | paper (reported) | paper k-files on our labels |
+|---|---|---|---|
+| `fixed-1` |     1.0 / 0.506 |     1.0 / 0.506 |     1.0 / 0.506 |
+| `fixed-10` |    10.0 / 0.553 |    10.0 / 0.553 |    10.0 / 0.553 |
+| `fixed-100` |   100.0 / 0.706 |   100.0 / 0.706 |   100.0 / 0.706 |
+| `fixed-1000` |  1000.0 / 0.730 |  1000.0 / 0.730 |  1000.0 / 0.730 |
+| `fixed-20` |    20.0 / 0.634 |    20.0 / 0.634 |    20.0 / 0.634 |
+| `fixed-200` |   200.0 / 0.717 |   200.0 / 0.717 |   200.0 / 0.717 |
+| `fixed-5` |     5.0 / 0.536 |       – / – |       – / – |
+| `fixed-500` |   500.0 / 0.718 |   500.0 / 0.718 |   500.0 / 0.718 |
+| `greedy-ckpt-dl-20-passage.original-bm25-1000.monot5-1000-ndcg@10-eet-alpha-0.001-beta0` |   993.0 / 0.730 |   993.0 / 0.730 |   993.0 / 0.730 |
+| `greedy-ckpt-dl-20-passage.original-bm25-1000.monot5-1000-ndcg@10-eet-alpha-0.001-beta1` |   112.0 / 0.709 |   112.0 / 0.709 |   112.0 / 0.709 |
+| `greedy-ckpt-dl-20-passage.original-bm25-1000.monot5-1000-ndcg@10-eet-alpha-0.001-beta2` |   112.0 / 0.709 |   112.0 / 0.709 |   112.0 / 0.709 |
+| `oracle-monot5-1000-ndcg@10` |   180.9 / 0.774 |   180.9 / 0.774 |   180.9 / 0.774 |
+| `surprise` |   712.1 / 0.721 |   712.1 / 0.721 |   712.1 / 0.721 |
+| `attncut-ckpt-dl-20-passage.original-bm25-1000.attncut.monot5-1000-ndcg@10-eet-alpha-0.001-beta0-100` |   887.3 / 0.731 |   888.0 / 0.729 |   888.0 / 0.729 |
+| `attncut-ckpt-dl-20-passage.original-bm25-1000.attncut.monot5-1000-ndcg@10-eet-alpha-0.001-beta1-100` |   188.8 / 0.701 |   197.9 / 0.701 |   197.9 / 0.701 |
+| `attncut-ckpt-dl-20-passage.original-bm25-1000.attncut.monot5-1000-ndcg@10-eet-alpha-0.001-beta2-100` |    62.6 / 0.681 |    67.5 / 0.677 |    67.5 / 0.677 |
+| `bicut-ckpt-dl-20-passage.original-bm25-1000.bicut.alpha0.4-100` |   365.3 / 0.691 |   385.5 / 0.702 |   385.5 / 0.702 |
+| `bicut-ckpt-dl-20-passage.original-bm25-1000.bicut.alpha0.5-100` |   237.9 / 0.715 |   184.0 / 0.711 |   184.0 / 0.711 |
+| `bicut-ckpt-dl-20-passage.original-bm25-1000.bicut.alpha0.6-100` |   126.8 / 0.669 |   130.7 / 0.672 |   130.7 / 0.672 |
+| `choppy-ckpt-dl-20-passage.original-bm25-1000.choppy.monot5-1000-ndcg@10-eet-alpha-0.001-beta0-100` |   521.5 / 0.707 |   783.6 / 0.727 |   783.6 / 0.727 |
+| `choppy-ckpt-dl-20-passage.original-bm25-1000.choppy.monot5-1000-ndcg@10-eet-alpha-0.001-beta1-100` |   168.7 / 0.712 |   161.4 / 0.714 |   161.4 / 0.714 |
+| `choppy-ckpt-dl-20-passage.original-bm25-1000.choppy.monot5-1000-ndcg@10-eet-alpha-0.001-beta2-100` |   136.9 / 0.693 |   116.7 / 0.711 |   116.7 / 0.711 |
+| `mmoecut-ckpt-dl-20-passage.original-bm25-1000.mmoecut.monot5-1000-ndcg@10-eet-alpha-0.001-beta0-100` |   769.5 / 0.723 |   791.4 / 0.722 |   791.4 / 0.722 |
+| `mmoecut-ckpt-dl-20-passage.original-bm25-1000.mmoecut.monot5-1000-ndcg@10-eet-alpha-0.001-beta1-100` |   152.9 / 0.692 |   144.5 / 0.690 |   144.5 / 0.690 |
+| `mmoecut-ckpt-dl-20-passage.original-bm25-1000.mmoecut.monot5-1000-ndcg@10-eet-alpha-0.001-beta2-100` |    69.2 / 0.674 |    62.0 / 0.668 |    62.0 / 0.668 |
+| `fixed-1` |     1.0 / 0.480 |     1.0 / 0.480 |     1.0 / 0.480 |
+| `fixed-10` |    10.0 / 0.523 |    10.0 / 0.523 |    10.0 / 0.523 |
+| `fixed-100` |   100.0 / 0.676 |   100.0 / 0.676 |   100.0 / 0.676 |
+| `fixed-1000` |  1000.0 / 0.713 |  1000.0 / 0.713 |  1000.0 / 0.713 |
+| `fixed-20` |    20.0 / 0.604 |    20.0 / 0.604 |    20.0 / 0.604 |
+| `fixed-200` |   200.0 / 0.684 |   200.0 / 0.684 |   200.0 / 0.684 |
+| `fixed-5` |     5.0 / 0.508 |       – / – |       – / – |
+| `fixed-500` |   500.0 / 0.697 |   500.0 / 0.697 |   500.0 / 0.697 |
+| `greedy-ckpt-dl-19-passage.original-bm25-1000.monot5-1000-ndcg@10-eet-alpha-0.001-beta0` |   991.0 / 0.713 |   991.0 / 0.713 |   991.0 / 0.713 |
+| `greedy-ckpt-dl-19-passage.original-bm25-1000.monot5-1000-ndcg@10-eet-alpha-0.001-beta1` |   162.0 / 0.678 |   162.0 / 0.678 |   162.0 / 0.678 |
+| `greedy-ckpt-dl-19-passage.original-bm25-1000.monot5-1000-ndcg@10-eet-alpha-0.001-beta2` |    86.0 / 0.674 |    86.0 / 0.674 |    86.0 / 0.674 |
+| `oracle-monot5-1000-ndcg@10` |   213.7 / 0.768 |   213.7 / 0.768 |   213.7 / 0.768 |
+| `surprise` |   720.6 / 0.705 |   720.6 / 0.705 |   720.6 / 0.705 |
+| `attncut-ckpt-dl-19-passage.original-bm25-1000.attncut.monot5-1000-ndcg@10-eet-alpha-0.001-beta0-100` |   880.6 / 0.712 |   931.3 / 0.712 |   931.3 / 0.712 |
+| `attncut-ckpt-dl-19-passage.original-bm25-1000.attncut.monot5-1000-ndcg@10-eet-alpha-0.001-beta1-100` |   108.9 / 0.665 |   112.8 / 0.661 |   112.8 / 0.661 |
+| `attncut-ckpt-dl-19-passage.original-bm25-1000.attncut.monot5-1000-ndcg@10-eet-alpha-0.001-beta2-100` |    75.2 / 0.658 |    72.9 / 0.663 |    72.9 / 0.663 |
+| `bicut-ckpt-dl-19-passage.original-bm25-1000.bicut.alpha0.4-100` |   560.2 / 0.709 |   537.6 / 0.710 |   537.6 / 0.710 |
+| `bicut-ckpt-dl-19-passage.original-bm25-1000.bicut.alpha0.5-100` |   418.5 / 0.706 |   361.6 / 0.697 |   361.6 / 0.697 |
+| `bicut-ckpt-dl-19-passage.original-bm25-1000.bicut.alpha0.6-100` |   352.6 / 0.690 |   340.8 / 0.690 |   340.8 / 0.690 |
+| `choppy-ckpt-dl-19-passage.original-bm25-1000.choppy.monot5-1000-ndcg@10-eet-alpha-0.001-beta0-100` |   812.5 / 0.711 |   865.6 / 0.711 |   865.6 / 0.711 |
+| `choppy-ckpt-dl-19-passage.original-bm25-1000.choppy.monot5-1000-ndcg@10-eet-alpha-0.001-beta1-100` |   217.9 / 0.679 |   203.2 / 0.675 |   203.2 / 0.675 |
+| `choppy-ckpt-dl-19-passage.original-bm25-1000.choppy.monot5-1000-ndcg@10-eet-alpha-0.001-beta2-100` |    82.8 / 0.656 |   110.6 / 0.669 |   110.6 / 0.669 |
+| `mmoecut-ckpt-dl-19-passage.original-bm25-1000.mmoecut.monot5-1000-ndcg@10-eet-alpha-0.001-beta0-100` |   718.1 / 0.705 |   756.7 / 0.712 |   756.7 / 0.712 |
+| `mmoecut-ckpt-dl-19-passage.original-bm25-1000.mmoecut.monot5-1000-ndcg@10-eet-alpha-0.001-beta1-100` |   126.7 / 0.680 |   131.1 / 0.681 |   131.1 / 0.681 |
+| `mmoecut-ckpt-dl-19-passage.original-bm25-1000.mmoecut.monot5-1000-ndcg@10-eet-alpha-0.001-beta2-100` |    58.7 / 0.656 |    53.6 / 0.652 |    53.6 / 0.652 |

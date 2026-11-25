@@ -1,0 +1,41 @@
+--- a/rlt/supervised_rlt/main.py
++++ b/rlt/supervised_rlt/main.py
+@@ -203,7 +203,10 @@
+     else:
+         raise NotImplementedError
+ 
+-    for epoch_id in range(1,args.epoch_num+1):
++    # RLT_INFER_EPOCHS="100": only infer the listed epochs (the paper reports the last one); unset = all epochs
++    epochs = [int(e) for e in os.environ["RLT_INFER_EPOCHS"].split(",")] if os.environ.get("RLT_INFER_EPOCHS") \
++        else range(1, args.epoch_num+1)
++    for epoch_id in epochs:
+         logging.info("*"*20)
+         logging.info(f"infer epoch {epoch_id}")
+ 
+--- a/rlt/supervised_rlt/dataset.py
++++ b/rlt/supervised_rlt/dataset.py
+@@ -90,18 +90,20 @@
+             unique_num = np.array(features[qid]["unique_num"])
+             tfidf_sim = np.array(features[qid]["tfidf_sim"])
+             doc2vec_sim = np.array(features[qid]["doc2vec_sim"])
++            # RLT_EXTRA_FEATURES="monot5": append these per-item feature keys as extra columns; unset = original 7
++            extra = [np.array(features[qid][k]) for k in os.environ.get("RLT_EXTRA_FEATURES", "").split(",") if k]
+ 
+             if self.args.name == "bicut":
+-                feature = np.column_stack((score,doc_len,unique_num,tfidf_sim,doc2vec_sim))
++                feature = np.column_stack((score,doc_len,unique_num,tfidf_sim,doc2vec_sim,*extra))
+ 
+             elif self.args.name == "choppy":
+-                feature = np.column_stack((score,doc_len,unique_num,tfidf_sim,doc2vec_sim))
++                feature = np.column_stack((score,doc_len,unique_num,tfidf_sim,doc2vec_sim,*extra))
+ 
+             elif self.args.name == "attncut":
+-                feature = np.column_stack((score,doc_len,unique_num,tfidf_sim,doc2vec_sim))
++                feature = np.column_stack((score,doc_len,unique_num,tfidf_sim,doc2vec_sim,*extra))
+ 
+             elif self.args.name == "mmoecut":
+-                feature = np.column_stack((score,doc_len,unique_num,tfidf_sim,doc2vec_sim))
++                feature = np.column_stack((score,doc_len,unique_num,tfidf_sim,doc2vec_sim,*extra))
+ 
+             elif self.args.name == "lecut":
+                 self.d_embd = len(features[qid]["embedding"][0])

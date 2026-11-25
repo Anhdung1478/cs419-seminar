@@ -1,0 +1,54 @@
+# repllama → rankllama  (avg. k / nDCG@10)
+
+| k-file | ours | paper (reported) | paper k-files on our labels |
+|---|---|---|---|
+| `fixed-1` |     1.0 / 0.739 |     1.0 / 0.739 |     1.0 / 0.739 |
+| `fixed-10` |    10.0 / 0.742 |    10.0 / 0.742 |    10.0 / 0.742 |
+| `fixed-100` |   100.0 / 0.768 |   100.0 / 0.768 |   100.0 / 0.768 |
+| `fixed-1000` |  1000.0 / 0.763 |  1000.0 / 0.763 |  1000.0 / 0.763 |
+| `fixed-20` |    20.0 / 0.765 |    20.0 / 0.765 |    20.0 / 0.765 |
+| `fixed-200` |   200.0 / 0.769 |   200.0 / 0.769 |   200.0 / 0.769 |
+| `fixed-5` |     5.0 / 0.732 |       – / – |       – / – |
+| `fixed-500` |   500.0 / 0.765 |   500.0 / 0.765 |   500.0 / 0.765 |
+| `greedy-ckpt-dl-20-passage.original-repllama-1000.rankllama-1000-ndcg@10-eet-alpha-0.001-beta0` |   770.0 / 0.763 |   770.0 / 0.763 |   770.0 / 0.763 |
+| `greedy-ckpt-dl-20-passage.original-repllama-1000.rankllama-1000-ndcg@10-eet-alpha-0.001-beta1` |    50.0 / 0.767 |    50.0 / 0.767 |    50.0 / 0.767 |
+| `greedy-ckpt-dl-20-passage.original-repllama-1000.rankllama-1000-ndcg@10-eet-alpha-0.001-beta2` |    50.0 / 0.767 |    50.0 / 0.767 |    50.0 / 0.767 |
+| `oracle-rankllama-1000-ndcg@10` |    23.3 / 0.794 |    23.3 / 0.794 |    23.3 / 0.794 |
+| `surprise` |   458.3 / 0.765 |   458.3 / 0.765 |   458.3 / 0.765 |
+| `attncut-ckpt-dl-20-passage.original-repllama-1000.attncut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta0-100` |   913.8 / 0.763 |   929.0 / 0.763 |   929.0 / 0.763 |
+| `attncut-ckpt-dl-20-passage.original-repllama-1000.attncut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta1-100` |   524.7 / 0.767 |   458.5 / 0.765 |   458.5 / 0.765 |
+| `attncut-ckpt-dl-20-passage.original-repllama-1000.attncut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta2-100` |   215.3 / 0.766 |   210.0 / 0.767 |   210.0 / 0.767 |
+| `bicut-ckpt-dl-20-passage.original-repllama-1000.bicut.alpha0.4-100` |  1000.0 / 0.763 |  1000.0 / 0.763 |  1000.0 / 0.763 |
+| `bicut-ckpt-dl-20-passage.original-repllama-1000.bicut.alpha0.5-100` |   272.6 / 0.766 |   166.8 / 0.766 |   166.8 / 0.766 |
+| `bicut-ckpt-dl-20-passage.original-repllama-1000.bicut.alpha0.6-100` |   160.4 / 0.766 |   153.7 / 0.766 |   153.7 / 0.766 |
+| `choppy-ckpt-dl-20-passage.original-repllama-1000.choppy.rankllama-1000-ndcg@10-eet-alpha-0.001-beta0-100` |   522.3 / 0.768 |    76.7 / 0.766 |    76.7 / 0.766 |
+| `choppy-ckpt-dl-20-passage.original-repllama-1000.choppy.rankllama-1000-ndcg@10-eet-alpha-0.001-beta1-100` |   124.9 / 0.766 |   106.5 / 0.766 |   106.5 / 0.766 |
+| `choppy-ckpt-dl-20-passage.original-repllama-1000.choppy.rankllama-1000-ndcg@10-eet-alpha-0.001-beta2-100` |   122.0 / 0.766 |    72.1 / 0.766 |    72.1 / 0.766 |
+| `mmoecut-ckpt-dl-20-passage.original-repllama-1000.mmoecut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta0-100` |   454.4 / 0.758 |   509.7 / 0.758 |   509.7 / 0.758 |
+| `mmoecut-ckpt-dl-20-passage.original-repllama-1000.mmoecut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta1-100` |   608.6 / 0.764 |   582.6 / 0.761 |   582.6 / 0.761 |
+| `mmoecut-ckpt-dl-20-passage.original-repllama-1000.mmoecut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta2-100` |   532.0 / 0.761 |   514.5 / 0.763 |   514.5 / 0.763 |
+| `fixed-1` |     1.0 / 0.719 |     1.0 / 0.719 |     1.0 / 0.719 |
+| `fixed-10` |    10.0 / 0.728 |    10.0 / 0.728 |    10.0 / 0.728 |
+| `fixed-100` |   100.0 / 0.767 |   100.0 / 0.767 |   100.0 / 0.767 |
+| `fixed-1000` |  1000.0 / 0.768 |  1000.0 / 0.768 |  1000.0 / 0.768 |
+| `fixed-20` |    20.0 / 0.761 |    20.0 / 0.761 |    20.0 / 0.761 |
+| `fixed-200` |   200.0 / 0.768 |   200.0 / 0.768 |   200.0 / 0.768 |
+| `fixed-5` |     5.0 / 0.726 |       – / – |       – / – |
+| `fixed-500` |   500.0 / 0.769 |   500.0 / 0.769 |   500.0 / 0.769 |
+| `greedy-ckpt-dl-19-passage.original-repllama-1000.rankllama-1000-ndcg@10-eet-alpha-0.001-beta0` |    31.0 / 0.764 |    31.0 / 0.764 |    31.0 / 0.764 |
+| `greedy-ckpt-dl-19-passage.original-repllama-1000.rankllama-1000-ndcg@10-eet-alpha-0.001-beta1` |    55.0 / 0.766 |    55.0 / 0.766 |    55.0 / 0.766 |
+| `greedy-ckpt-dl-19-passage.original-repllama-1000.rankllama-1000-ndcg@10-eet-alpha-0.001-beta2` |    55.0 / 0.766 |    55.0 / 0.766 |    55.0 / 0.766 |
+| `oracle-rankllama-1000-ndcg@10` |    42.5 / 0.799 |    42.5 / 0.799 |    42.5 / 0.799 |
+| `surprise` |   460.0 / 0.767 |   460.0 / 0.767 |   460.0 / 0.767 |
+| `attncut-ckpt-dl-19-passage.original-repllama-1000.attncut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta0-100` |   668.5 / 0.770 |   572.7 / 0.770 |   572.7 / 0.770 |
+| `attncut-ckpt-dl-19-passage.original-repllama-1000.attncut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta1-100` |   360.6 / 0.769 |   341.3 / 0.769 |   341.3 / 0.769 |
+| `attncut-ckpt-dl-19-passage.original-repllama-1000.attncut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta2-100` |   253.6 / 0.767 |   259.4 / 0.769 |   259.4 / 0.769 |
+| `bicut-ckpt-dl-19-passage.original-repllama-1000.bicut.alpha0.4-100` |  1000.0 / 0.768 |  1000.0 / 0.768 |  1000.0 / 0.768 |
+| `bicut-ckpt-dl-19-passage.original-repllama-1000.bicut.alpha0.5-100` |   265.7 / 0.767 |   322.5 / 0.768 |   322.5 / 0.768 |
+| `bicut-ckpt-dl-19-passage.original-repllama-1000.bicut.alpha0.6-100` |   157.9 / 0.765 |   122.4 / 0.764 |   122.4 / 0.764 |
+| `choppy-ckpt-dl-19-passage.original-repllama-1000.choppy.rankllama-1000-ndcg@10-eet-alpha-0.001-beta0-100` |   161.7 / 0.765 |   187.5 / 0.764 |   187.5 / 0.764 |
+| `choppy-ckpt-dl-19-passage.original-repllama-1000.choppy.rankllama-1000-ndcg@10-eet-alpha-0.001-beta1-100` |    68.0 / 0.766 |    60.5 / 0.766 |    60.5 / 0.766 |
+| `choppy-ckpt-dl-19-passage.original-repllama-1000.choppy.rankllama-1000-ndcg@10-eet-alpha-0.001-beta2-100` |    72.8 / 0.769 |    41.4 / 0.763 |    41.4 / 0.763 |
+| `mmoecut-ckpt-dl-19-passage.original-repllama-1000.mmoecut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta0-100` |   123.0 / 0.725 |   130.0 / 0.727 |   130.0 / 0.727 |
+| `mmoecut-ckpt-dl-19-passage.original-repllama-1000.mmoecut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta1-100` |   243.4 / 0.746 |   291.9 / 0.762 |   291.9 / 0.762 |
+| `mmoecut-ckpt-dl-19-passage.original-repllama-1000.mmoecut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta2-100` |   212.3 / 0.757 |   213.7 / 0.764 |   213.7 / 0.764 |

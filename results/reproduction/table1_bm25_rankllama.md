@@ -1,0 +1,54 @@
+# bm25 → rankllama  (avg. k / nDCG@10)
+
+| k-file | ours | paper (reported) | paper k-files on our labels |
+|---|---|---|---|
+| `fixed-1` |     1.0 / 0.506 |     1.0 / 0.506 |     1.0 / 0.506 |
+| `fixed-10` |    10.0 / 0.557 |    10.0 / 0.557 |    10.0 / 0.557 |
+| `fixed-100` |   100.0 / 0.730 |   100.0 / 0.730 |   100.0 / 0.730 |
+| `fixed-1000` |  1000.0 / 0.747 |  1000.0 / 0.747 |  1000.0 / 0.747 |
+| `fixed-20` |    20.0 / 0.651 |    20.0 / 0.651 |    20.0 / 0.651 |
+| `fixed-200` |   200.0 / 0.739 |   200.0 / 0.739 |   200.0 / 0.739 |
+| `fixed-5` |     5.0 / 0.534 |       – / – |       – / – |
+| `fixed-500` |   500.0 / 0.745 |   500.0 / 0.745 |   500.0 / 0.745 |
+| `greedy-ckpt-dl-20-passage.original-bm25-1000.rankllama-1000-ndcg@10-eet-alpha-0.001-beta0` |   987.0 / 0.746 |   987.0 / 0.746 |   987.0 / 0.746 |
+| `greedy-ckpt-dl-20-passage.original-bm25-1000.rankllama-1000-ndcg@10-eet-alpha-0.001-beta1` |   242.0 / 0.737 |   242.0 / 0.737 |   242.0 / 0.737 |
+| `greedy-ckpt-dl-20-passage.original-bm25-1000.rankllama-1000-ndcg@10-eet-alpha-0.001-beta2` |   242.0 / 0.737 |   242.0 / 0.737 |   242.0 / 0.737 |
+| `oracle-rankllama-1000-ndcg@10` |   156.9 / 0.785 |   156.9 / 0.785 |   156.9 / 0.785 |
+| `surprise` |   712.1 / 0.743 |   712.1 / 0.743 |   712.1 / 0.743 |
+| `attncut-ckpt-dl-20-passage.original-bm25-1000.attncut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta0-100` |   917.5 / 0.746 |   904.2 / 0.747 |   904.2 / 0.747 |
+| `attncut-ckpt-dl-20-passage.original-bm25-1000.attncut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta1-100` |   213.6 / 0.719 |   211.2 / 0.720 |   211.2 / 0.720 |
+| `attncut-ckpt-dl-20-passage.original-bm25-1000.attncut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta2-100` |    65.6 / 0.695 |    64.2 / 0.692 |    64.2 / 0.693 |
+| `bicut-ckpt-dl-20-passage.original-bm25-1000.bicut.alpha0.4-100` |   365.3 / 0.709 |   385.5 / 0.719 |   385.5 / 0.719 |
+| `bicut-ckpt-dl-20-passage.original-bm25-1000.bicut.alpha0.5-100` |   237.9 / 0.733 |   184.0 / 0.729 |   184.0 / 0.729 |
+| `bicut-ckpt-dl-20-passage.original-bm25-1000.bicut.alpha0.6-100` |   126.8 / 0.689 |   130.7 / 0.693 |   130.7 / 0.693 |
+| `choppy-ckpt-dl-20-passage.original-bm25-1000.choppy.rankllama-1000-ndcg@10-eet-alpha-0.001-beta0-100` |   776.9 / 0.743 |   843.0 / 0.744 |   843.0 / 0.744 |
+| `choppy-ckpt-dl-20-passage.original-bm25-1000.choppy.rankllama-1000-ndcg@10-eet-alpha-0.001-beta1-100` |   205.4 / 0.737 |   140.6 / 0.733 |   140.6 / 0.733 |
+| `choppy-ckpt-dl-20-passage.original-bm25-1000.choppy.rankllama-1000-ndcg@10-eet-alpha-0.001-beta2-100` |   167.4 / 0.723 |   118.8 / 0.732 |   118.8 / 0.732 |
+| `mmoecut-ckpt-dl-20-passage.original-bm25-1000.mmoecut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta0-100` |   843.4 / 0.743 |   843.7 / 0.741 |   843.7 / 0.741 |
+| `mmoecut-ckpt-dl-20-passage.original-bm25-1000.mmoecut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta1-100` |   149.9 / 0.708 |   138.3 / 0.714 |   138.3 / 0.714 |
+| `mmoecut-ckpt-dl-20-passage.original-bm25-1000.mmoecut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta2-100` |    59.3 / 0.687 |    62.0 / 0.687 |    62.0 / 0.687 |
+| `fixed-1` |     1.0 / 0.480 |     1.0 / 0.480 |     1.0 / 0.480 |
+| `fixed-10` |    10.0 / 0.532 |    10.0 / 0.532 |    10.0 / 0.532 |
+| `fixed-100` |   100.0 / 0.697 |   100.0 / 0.697 |   100.0 / 0.697 |
+| `fixed-1000` |  1000.0 / 0.762 |  1000.0 / 0.762 |  1000.0 / 0.762 |
+| `fixed-20` |    20.0 / 0.612 |    20.0 / 0.612 |    20.0 / 0.612 |
+| `fixed-200` |   200.0 / 0.719 |   200.0 / 0.719 |   200.0 / 0.719 |
+| `fixed-5` |     5.0 / 0.511 |       – / – |       – / – |
+| `fixed-500` |   500.0 / 0.739 |   500.0 / 0.739 |   500.0 / 0.739 |
+| `greedy-ckpt-dl-19-passage.original-bm25-1000.rankllama-1000-ndcg@10-eet-alpha-0.001-beta0` |   992.0 / 0.762 |   992.0 / 0.762 |   992.0 / 0.762 |
+| `greedy-ckpt-dl-19-passage.original-bm25-1000.rankllama-1000-ndcg@10-eet-alpha-0.001-beta1` |   140.0 / 0.703 |   140.0 / 0.703 |   140.0 / 0.703 |
+| `greedy-ckpt-dl-19-passage.original-bm25-1000.rankllama-1000-ndcg@10-eet-alpha-0.001-beta2` |    68.0 / 0.682 |    68.0 / 0.682 |    68.0 / 0.682 |
+| `oracle-rankllama-1000-ndcg@10` |   228.6 / 0.804 |   228.6 / 0.804 |   228.6 / 0.804 |
+| `surprise` |   720.6 / 0.748 |   720.6 / 0.748 |   720.6 / 0.748 |
+| `attncut-ckpt-dl-19-passage.original-bm25-1000.attncut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta0-100` |   821.6 / 0.760 |   861.9 / 0.760 |   861.9 / 0.760 |
+| `attncut-ckpt-dl-19-passage.original-bm25-1000.attncut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta1-100` |   103.7 / 0.694 |    95.1 / 0.689 |    95.1 / 0.689 |
+| `attncut-ckpt-dl-19-passage.original-bm25-1000.attncut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta2-100` |    65.7 / 0.682 |    63.9 / 0.681 |    63.9 / 0.681 |
+| `bicut-ckpt-dl-19-passage.original-bm25-1000.bicut.alpha0.4-100` |   560.2 / 0.747 |   537.6 / 0.745 |   537.6 / 0.745 |
+| `bicut-ckpt-dl-19-passage.original-bm25-1000.bicut.alpha0.5-100` |   418.5 / 0.729 |   361.6 / 0.716 |   361.6 / 0.716 |
+| `bicut-ckpt-dl-19-passage.original-bm25-1000.bicut.alpha0.6-100` |   352.6 / 0.706 |   340.8 / 0.705 |   340.8 / 0.705 |
+| `choppy-ckpt-dl-19-passage.original-bm25-1000.choppy.rankllama-1000-ndcg@10-eet-alpha-0.001-beta0-100` |   726.4 / 0.750 |   690.2 / 0.748 |   690.2 / 0.748 |
+| `choppy-ckpt-dl-19-passage.original-bm25-1000.choppy.rankllama-1000-ndcg@10-eet-alpha-0.001-beta1-100` |   141.2 / 0.699 |    89.7 / 0.696 |    89.7 / 0.696 |
+| `choppy-ckpt-dl-19-passage.original-bm25-1000.choppy.rankllama-1000-ndcg@10-eet-alpha-0.001-beta2-100` |    47.1 / 0.668 |    52.7 / 0.661 |    52.7 / 0.661 |
+| `mmoecut-ckpt-dl-19-passage.original-bm25-1000.mmoecut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta0-100` |   670.3 / 0.739 |   745.4 / 0.747 |   745.4 / 0.746 |
+| `mmoecut-ckpt-dl-19-passage.original-bm25-1000.mmoecut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta1-100` |   105.0 / 0.674 |   131.0 / 0.696 |   131.0 / 0.696 |
+| `mmoecut-ckpt-dl-19-passage.original-bm25-1000.mmoecut.rankllama-1000-ndcg@10-eet-alpha-0.001-beta2-100` |    41.1 / 0.652 |    52.5 / 0.665 |    52.5 / 0.665 |

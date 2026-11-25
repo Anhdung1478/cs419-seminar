@@ -1,0 +1,19 @@
+# PC (WSL2) env "rlt", Python 3.10. torch is installed separately (cu121 wheel), see scripts/00_setup.sh.
+# Upstream pins (third_party/RLT4Reranking/requirements.txt) changed where they no longer work:
+#   pyserini 0.20.0 -> 0.22.1 (first version with the SPLADE++ ED prebuilt index)
+#   gensim 3.2.0    -> 4.3.x  (3.2.0 has no wheels for Python >= 3.7)
+#   + peft, more-itertools, attrs (imported by upstream code but missing from its requirements)
+pyserini==0.22.1
+transformers==4.36.0
+peft==0.6.2
+datasets==2.17.1
+tqdm==4.66.1
+pytrec-eval-terrier==0.5.6   # same `pytrec_eval` module/trec_eval as upstream's pytrec-eval 0.5, but ships wheels
+scipy==1.12.0
+numpy==1.26.4
+gensim==4.3.3
+more-itertools
+attrs
+ir-datasets
+sentencepiece
+faiss-cpu==1.8.0   # imported by pyserini.encode even for sparse search; not in pyserini's deps
