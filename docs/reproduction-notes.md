@@ -51,9 +51,55 @@ The RLT method tables are in `results/reproduction/*.md`, produced by `scripts/0
 | MonoT5 | `monot5.py` via pygaggle (silently on CPU, all 200 queries) | `src/monot5_rerank.py`: same scoring (log P("true"), "Query: … Document: … Relevant:", 512 tokens), GPU, judged queries only | BM25 → MonoT5 reproduces .730/.713 exactly. |
 | Labels | `reranking_labels.py` crashes on `ndcg@10` (`if` vs `elif`) | Patch 0001; also builds the evaluator once per query (same numbers) | — |
 | Supervised RLT | — | Patch 0002 drops unused pyserini/BertTokenizer imports | — |
-| Supervised RLT | — | Patch 0003: env-gated hooks `RLT_INFER_EPOCHS` (infer only epoch 100, used by `07_rlt.sh`) and `RLT_EXTRA_FEATURES` (extra feature columns, unused here) | Epoch 100 is the epoch the paper reports. Kaggle's disk cannot hold all 100 checkpoints of every model (~54 GB). |
+| Supervised RLT | — | Patch 0003: env-gated hooks `RLT_INFER_EPOCHS` (infer only epoch 100, used by `07_rlt.sh`) and `RLT_EXTRA_FEATURES` (extra feature columns, used by E4) | Epoch 100 is the epoch the paper reports. Kaggle's disk cannot hold all 100 checkpoints of every model (~54 GB). |
 
-## 3. Compute log
+## 3. Extension design notes
+
+- **BiCut** is excluded from E1/E3/E4. Its loss is a pure-Python double loop over every item of every list: about 10 s/epoch and about 16 min per training, against 35 s for AttnCut. It also ignores the re-ranking labels.
+- Extensions infer only **epoch 100**, which is the epoch the paper reports.
+- **E1 seeds:** 42 (the paper's default), 1, 2, 3, 4.
+
+## 3b. E3 result: cross-retriever transfer (seed 42, `results/ext/e3_summary.md`)
+
+The transfer gap below is nDCG@10 of a model trained on another retriever, minus a model trained on the test retriever. Avg. k is shown alongside.
+
+| Train → test | Raw scores: gap (mean / worst) | Z-scored scores: gap (mean / worst) |
+|---|---|---|
+| BM25 → SPLADE++ | −0.023 / −0.053 | **+0.002 / −0.010** |
+| SPLADE++ → BM25 | −0.000 / −0.118 | −0.046 / −0.125 |
+
+- With raw scores, BM25-trained models applied to SPLADE++ often collapse to k≈1, giving no re-ranking (.731/.720), or jump to k≈1000. SPLADE++ impact scores are far outside the BM25 training range.
+- Per-query z-scoring removes the BM25 → SPLADE++ gap and also lowers avg. k: on SPLADE++ from 446 to 374.
+- The reverse direction looks fine with raw scores only because those models re-rank almost everything (mean avg. k 562 on BM25), which gives full quality at nearly full cost. With z-scores they cut much earlier (avg. k ≈ 138) and lose quality on BM25.
+- **Takeaway:** the score feature is retriever-specific. Normalising it fixes the collapses, but a cutoff learned on a strong retriever still cuts too early for a weak one.
+
+## 3c. E1 result: seed variance of supervised RLT (`results/ext/e1_summary.md`)
+
+Setup: Choppy, AttnCut and MtCut × β∈{0,1,2}; BM25 and SPLADE++ → RankLLaMA; both train→test directions; seeds 42, 1, 2, 3, 4. That is 180 runs.
+
+| Quantity | Value |
+|---|---|
+| Mean std of nDCG@10 across seeds | 0.007 |
+| Largest max−min nDCG@10 across seeds | 0.050 (Choppy β=2, SPLADE++) |
+| Mean std of avg. k across seeds | 144 items |
+| (pipeline, year, β) groups where the best method changes with the seed | 7 / 12 |
+
+- With 43/54 training queries, the seed spread is as large as the reproduction gaps and as the differences between methods in the paper's tables. **Comparisons between single-seed supervised methods are not reliable**, so they should be reported as mean ± std.
+- MtCut on SPLADE++ DL20 predicts k≈1000 for every β and every seed. It ignores the efficiency side of EET entirely.
+
+## 3d. E4 result: MonoT5 score as an extra RLT feature (`results/ext/e4_summary.md`)
+
+Cost model, measured on Kaggle T4s: MonoT5-base scores ~58 pairs/s and RankLLaMA-7B ~7.2 pairs/s. So scoring all 1000 items with MonoT5 costs about the same as re-ranking **124 items** with RankLLaMA.
+
+| Pipeline | Δ nDCG@10 (mean over methods) | Δ avg. k | Pays off after the MonoT5 cost? |
+|---|---|---|---|
+| RepLLaMA → RankLLaMA | −0.002 … +0.015 | −268 (AttnCut), −182 (MtCut) | Yes (net −144 / −58 items) |
+| BM25 → RankLLaMA | −0.007 … +0.007 | −60 … +8 | No |
+| SPLADE++ → RankLLaMA | −0.018 … +0.008 | −85 … +155 | No |
+
+- Every nDCG change is within the seed noise from E1 (std 0.007, range up to 0.05). The only effect clearly above noise is the avg. k reduction on RepLLaMA (≈2σ of the avg. k std).
+
+## 4. Compute log
 
 | Job | Where | Time |
 |---|---|---|
